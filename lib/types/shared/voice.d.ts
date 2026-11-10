@@ -54,18 +54,25 @@ export declare function setVoiceBase(base: unknown): void;
  */
 export declare function setSurface(next: unknown): void;
 /**
- * 记录成品配置里的音色、总开关与音量；网页端在读到 `/config` 时调一次。
+ * 记录成品配置里的音色与音量；网页端在读到 `/config` 时调一次。
  * 调用即视为配置已就绪，后续播放不再自己去拉。
+ *
  * @param name - 音色 id（非字符串按未指定处理）。
- * @param enabled - 播报总开关（严格 `=== true` 才算开启）。
  * @param volume - 音量系数（0–1）；缺省或非数值按最大音量播放。
  */
-export declare function setVoiceConfig(name: unknown, enabled: unknown, volume?: unknown): void;
+export declare function setVoiceConfig(name: unknown, volume?: unknown): void;
 /**
- * 按 `say` 叶子播放：叶子指定了本端、且总开关开着才念。
+ * 记录工作状态播报开关；网页端在读到 `/config` 时调一次。
  *
- * 三个门依次是：叶子有没有点名本端 → 网页端页面是否可见 → 成品配置的总开关。
- * 任何一道没过都只把状态归回 `idle`，气泡照常显示，不打断渲染。
+ * @param on - 成品配置的 `main.voiceNotifyEnabled`；只有严格 `true` 才算开启。
+ */
+export declare function setVoiceNotifyEnabled(on: unknown): void;
+/** 工作状态播报是否开启。 */
+export declare function isVoiceNotifyEnabled(): boolean;
+/**
+ * 按 `say` 叶子播放：叶子点名了本端就念。
+ *
+ * 两道门：叶子有没有点名本端 → 网页端页面是否可见。念不念由宿主在写叶子时决定。
  *
  * @param say - 要念的那一句：`text` 正文，`voiceTo` 该由哪一端念。
  */
@@ -73,13 +80,20 @@ export declare function playSayVoice(say: {
     readonly text: string;
     readonly voiceTo?: VoiceTarget;
 }): void;
+/**
+ * 念一句与气泡无关的系统提示（工作状态播报）。
+ *
+ * 念不念由调用方判定。与其它自动播报共用同一个单槽——后一句掐掉前一句。
+ *
+ * @param text - 要念的整句；空串直接跳过。
+ */
+export declare function speakNotice(text: string): void;
 /** 手动点播对外暴露的阶段；`idle` = 没在放（含被打断），`failed` = 合成没成功。 */
 export type SpeakPhase = 'idle' | 'loading' | 'playing' | 'failed';
 /**
  * 手动播报一句（对话面板的喇叭按钮用）。
  *
- * 与自动播报有两点不同：不看待播标记（用户点的就是这一句），也不受总开关限制——
- * 开关管的是「自动念不念」，用户主动点播是明确意图。音色仍取配置值。
+ * 用户明确点播，拿到正文就合成播放；音色与音量取配置值。
  *
  * @param text - 要念的正文。
  * @param onPhase - 阶段回调：请求合成时 `loading`、音频就绪开始播时 `playing`、播完 `idle`、失败或超时 `failed`。

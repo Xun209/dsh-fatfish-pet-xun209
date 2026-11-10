@@ -131,6 +131,8 @@ export declare const zh: {
     voiceWhisperEnabledHint: string;
     voiceTodoEnabled: string;
     voiceTodoEnabledHint: string;
+    voiceNotifyEnabled: string;
+    voiceNotifyEnabledHint: string;
     voiceNameLabel: string;
     voiceVolumeLabel: string;
     voiceVolumeHint: string;

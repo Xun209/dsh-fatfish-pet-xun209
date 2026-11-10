@@ -32,7 +32,7 @@ export interface SaveFields {
     chatAnimationEnabled: boolean;
     confineToScreen: boolean;
     trayEnabled: boolean;
-    /** 语音播报总开关。 */
+    /** 手动播报开关：手动触发的碎碎念与对话回复。 */
     voiceEnabled: boolean;
     /** 语音音色 id（白名单内的四个之一）。 */
     voiceName: string;
@@ -42,6 +42,8 @@ export interface SaveFields {
     voiceWhisperEnabled: boolean;
     /** 待办提醒要不要念出来。 */
     voiceTodoEnabled: boolean;
+    /** 工作状态播报要不要念出来（任务完成 / 出错 / 等确认时念一句配置台词）。 */
+    voiceNotifyEnabled: boolean;
     physics: PhysicsParams;
     whisperModel: ModelSelection;
     chatModel: ModelSelection;

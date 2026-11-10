@@ -1,5 +1,5 @@
 /**
- * 语音卡：播报总开关、两个细分开关与音色选择。
+ * 语音卡：四个播报开关与音色、音量。
  *
  * 切换只改本地状态、随「保存」整包写入——即时写盘会重启桌面 Helper、重建全部桌面宠物窗口。
  * 音色选择器由外壳注入（与模型卡注入 picker 同构），卡片本身不硬编码任何音色 id。
@@ -13,7 +13,7 @@ export type { VoiceOption } from './picker/voice-picker.ts';
 export interface VoiceCardProps {
     /** 保存中或配置未就绪时禁用全部控件。 */
     readonly busy: boolean;
-    /** 播报总开关的当前值。 */
+    /** 手动播报开关的当前值：手动触发的碎碎念与对话回复。 */
     readonly enabled: boolean;
     /** 当前音色 id。 */
     readonly voiceName: string;
@@ -21,11 +21,13 @@ export interface VoiceCardProps {
     readonly volume: number;
     /** 可选音色；为空时选择器只显示当前值（列表还没拉回来或拉取失败）。 */
     readonly voices: readonly VoiceOption[];
-    /** 周期碎碎念要不要念出来（受总开关约束）。 */
+    /** 周期碎碎念要不要念出来。 */
     readonly whisperEnabled: boolean;
-    /** 待办提醒要不要念出来（受总开关约束）。 */
+    /** 待办提醒要不要念出来。 */
     readonly todoEnabled: boolean;
-    /** 切换播报开关。 */
+    /** 工作状态播报要不要念出来。 */
+    readonly notifyEnabled: boolean;
+    /** 切换手动播报开关。 */
     readonly onToggle: (value: boolean) => void;
     /** 选择音色。 */
     readonly onVoiceChange: (voiceName: string) => void;
@@ -35,6 +37,8 @@ export interface VoiceCardProps {
     readonly onWhisperToggle: (value: boolean) => void;
     /** 切换待办提醒的播报。 */
     readonly onTodoToggle: (value: boolean) => void;
+    /** 切换工作状态播报。 */
+    readonly onNotifyToggle: (value: boolean) => void;
 }
 /**
  * 造语音卡。

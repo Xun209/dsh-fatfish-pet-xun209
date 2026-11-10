@@ -9,7 +9,7 @@
  *  初始 160px，随输入增宽、封顶 340px 后折行增高；回车发送，Esc 或点外关闭。
  *  宽度由 JS 按文本测量覆盖根元素宽度。 */
 export const CHAT_CSS = [
-  '.dsh-pet-chat{position:fixed;z-index:2147483001;width:160px;max-width:80vw;',
+  '.dsh-pet-chat{position:fixed;-webkit-app-region:no-drag!important;z-index:2147483001;width:160px;max-width:80vw;',
   'background:rgba(255,255,255,.98);border:1px solid rgba(0,0,0,.12);border-radius:10px;',
   'box-shadow:0 10px 32px rgba(0,0,0,.22);color:#2b2b2b;font-size:14px;line-height:1.5;',
   // 字体与桌宠气泡同款（上首软糖体，两端均已注入 @font-face），风格一致不显正式。

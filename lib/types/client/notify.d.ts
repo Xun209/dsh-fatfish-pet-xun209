@@ -7,6 +7,9 @@
  * 以及 app.ts 注入的会话跳转与命名服务（取不到时只降级，不影响弹窗）。
  * @module dsh-pet/src/client/notify
  */
+/** 用户是否在看本页（页面可见且持有焦点）。
+ *  系统通知与工作状态播报共用这一条：用户在看就不打扰，走开了才提醒。 */
+export declare function isPageActive(): boolean;
 /** 图标 URL 表；文件名以 shared 为单一来源，设置页的测试通知也用它。 */
 export declare const NOTIFY_ICONS: {
     readonly done: string;

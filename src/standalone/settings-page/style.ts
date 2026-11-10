@@ -138,11 +138,11 @@ input:disabled,select:disabled,textarea:disabled{background:var(--dsw-static-neu
 .selectValue{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .selectChevron{flex:none;width:16px;height:16px;color:var(--dsw-alias-label-tertiary);transition:transform .1s ease}
 .selectTrigger[aria-expanded=true] .selectChevron{transform:rotate(180deg)}
-.selectMenu{position:fixed;z-index:60;margin:0;padding:4px;list-style:none;overflow-y:auto;background:var(--dsw-alias-bg-layer-2);border:1px solid var(--dsw-alias-border-l3);border-radius:var(--dsw-radius-md);box-shadow:var(--dsw-elevation-prominent)}
+.selectMenu{position:fixed;-webkit-app-region:no-drag!important;z-index:60;margin:0;padding:4px;list-style:none;overflow-y:auto;background:var(--dsw-alias-bg-layer-2);border:1px solid var(--dsw-alias-border-l3);border-radius:var(--dsw-radius-md);box-shadow:var(--dsw-elevation-prominent)}
 .selectItem{padding:7px 10px;border-radius:var(--dsw-radius-sm);font-size:14px;line-height:20px;color:var(--dsw-alias-label-primary);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .selectItem:hover,.selectItem.active{background:var(--dsw-alias-interactive-bg-hover)}
 .selectItem[aria-selected=true]{background:var(--dsw-specific-sidebar-nav-item-active);font-weight:500}
-.dialogMask{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--dsw-alias-bg-mask-1)}
+.dialogMask{position:fixed;-webkit-app-region:no-drag!important;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--dsw-alias-bg-mask-1)}
 .dialog{width:min(420px,100%);padding:20px 22px 16px;border-radius:var(--dsw-radius-lg);background:var(--dsw-alias-bg-layer-2);box-shadow:var(--dsw-elevation-prominent)}
 .dialogTitle{margin:0 0 8px;font-size:15px;font-weight:600;line-height:22px}
 .dialogText{margin:0;font-size:13px;line-height:1.65;color:var(--dsw-alias-label-secondary);white-space:pre-line;word-break:break-word}

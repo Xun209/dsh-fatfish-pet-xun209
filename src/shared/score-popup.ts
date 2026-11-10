@@ -11,7 +11,7 @@ export const SCORE_POPUP_DURATION_MS = 2200;
 
 /** 弹窗样式 —— 两端注入同一份。 */
 export const SCORE_POPUP_CSS = [
-  '.dsh-pet-score{position:fixed;z-index:2147483002;min-width:120px;text-align:center;',
+  '.dsh-pet-score{position:fixed;-webkit-app-region:no-drag!important;z-index:2147483002;min-width:120px;text-align:center;',
   'background:rgba(255,255,255,.97);border:1px solid rgba(255,179,0,.35);border-radius:12px;',
   'box-shadow:0 10px 32px rgba(0,0,0,.22);padding:8px 16px 9px;user-select:none;pointer-events:auto;',
   // 字体族走全局配置变量（两端注入在 documentElement）：弹窗挂在 body 下，继承不到宠物根容器。
@@ -21,7 +21,7 @@ export const SCORE_POPUP_CSS = [
   '.dsh-pet-score-val{font-size:22px;line-height:1.25;font-weight:700;color:#ff8f00;font-variant-numeric:tabular-nums}',
   '.dsh-pet-score-sub{font-size:11px;line-height:1.4;color:rgba(43,43,43,.6);margin-top:2px;white-space:nowrap}',
   // 粒子层：整屏固定、不挡交互；粒子为绝对定位小圆点，位移与透明度由 rAF 直接写
-  '.dsh-pet-score-burst{position:fixed;inset:0;pointer-events:none;z-index:2147483002}',
+  '.dsh-pet-score-burst{position:fixed;-webkit-app-region:no-drag!important;inset:0;pointer-events:none;z-index:2147483002}',
   '.dsh-pet-score-particle{position:absolute;border-radius:50%;pointer-events:none}',
   '@keyframes dshPetScorePop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}',
 ].join('');

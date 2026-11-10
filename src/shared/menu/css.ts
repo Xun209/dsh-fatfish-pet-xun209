@@ -11,7 +11,7 @@
 /** 菜单样式 —— 两端注入同一份。每级面板是独立的绝对定位盒子，位置由 JS 内联写入，互不嵌套。 */
 export const MENU_CSS = [
   // 浮层固定浅色：对比度与两端口径一致，优先于跟随宿主主题。
-  '.dsh-pet-menu{position:fixed;left:0;top:0;z-index:2147483000;color:#2b2b2b;font-size:13px;line-height:1.5;',
+  '.dsh-pet-menu{position:fixed;-webkit-app-region:no-drag!important;left:0;top:0;z-index:2147483000;color:#2b2b2b;font-size:13px;line-height:1.5;',
   "font-family:'Microsoft YaHei UI','Segoe UI','PingFang SC',sans-serif;user-select:none;pointer-events:auto}",
   '.dsh-pet-menu,.dsh-pet-menu *{box-sizing:border-box}',
   '.dsh-pet-menu-column{position:absolute;min-width:150px;max-width:300px;padding:4px;',

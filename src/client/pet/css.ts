@@ -10,7 +10,7 @@ import { TOOLTIP_CSS } from '../../shared/tooltip.ts';
 
 /** 宠物页面样式表。 */
 const PET_CSS = [
-  '.dsh-pet-root{position:fixed;z-index:40;pointer-events:none;user-select:none}',
+  '.dsh-pet-root{position:fixed;-webkit-app-region:no-drag!important;z-index:40;pointer-events:none;user-select:none}',
   '.dsh-pet-root[data-corner="bottom-right"]{right:var(--dsh-pet-mx,24px);bottom:var(--dsh-pet-my,0)}',
   '.dsh-pet-root[data-corner="bottom-left"]{left:var(--dsh-pet-mx,24px);bottom:var(--dsh-pet-my,0)}',
   '.dsh-pet-root[data-corner="top-right"]{right:var(--dsh-pet-mx,24px);top:var(--dsh-pet-my,0)}',
