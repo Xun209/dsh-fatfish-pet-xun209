@@ -6,11 +6,12 @@
  * @module dsh-pet/src/client/pet/card/bubble-slots
  */
 import { type BalanceState } from '../../../shared/balance/index.ts';
+import type { EnvState } from '../../../shared/state.ts';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type * as ReactNS from 'react';
 import type { jsx } from 'react/jsx-runtime';
 /** 当前该挂哪个气泡；`none` 表示哪个条件都不成立。 */
-export type BubbleSlot = 'todo' | 'work-terminal' | 'whisper' | 'balance' | 'work' | 'none';
+export type BubbleSlot = 'todo' | 'work-terminal' | 'whisper' | 'balance' | 'env' | 'work' | 'none';
 /** 优先级判定的输入：全部是渲染期的既成事实，判定本身不产生副作用。 */
 export interface BubbleSlotInput {
     /** 待办面板是否打开；打开时独占槽位，其余气泡一律让位。 */
@@ -35,13 +36,17 @@ export interface BubbleSlotInput {
     balanceEnabled: boolean;
     /** 本次余额是否手动请求；手动请求不受开关门控。 */
     balanceManual: boolean;
+    /** 环境气泡是否点亮。 */
+    envOn: boolean;
+    /** 环境数据是否已到达；null 表示还没有可用数据。 */
+    envAvailable: boolean;
 }
 /**
  * 决定当前挂哪个气泡。
  *
  * 终态任务只活 10s，所以不让位；非终态常驻，让位 10s 没有损失。
  *
- * @param input - 三种气泡的显隐与开关。
+ * @param input - 各气泡的显隐与开关。
  * @returns 命中的槽位；都不成立时为 `none`。
  */
 export declare function decideBubbleSlot(input: BubbleSlotInput): BubbleSlot;
@@ -87,10 +92,17 @@ export type TodoBubbleComponent = (props: {
     on: boolean;
     onClose: () => void;
 }) => ReactNode;
-/** 三种气泡组件。 */
+/** 环境气泡组件；props 与 `client/bubble.ts` 的 EnvBubble 一致。 */
+export type EnvBubbleComponent = (props: {
+    state: EnvState;
+    on: boolean;
+}) => ReactNode;
+/** 四种气泡组件。 */
 export interface BubbleComponents {
     /** 余额气泡。 */
     balanceBubble: BalanceBubbleComponent;
+    /** 环境气泡。 */
+    envBubble: EnvBubbleComponent;
     /** 待办面板气泡。 */
     todoBubble: TodoBubbleComponent;
     /** 说话气泡。 */
@@ -114,11 +126,15 @@ export interface BubbleSlotsInput {
     onFocusSession?: (sessionId: string) => void;
     /** 说话气泡配图的素材根。 */
     assetRoot?: string;
+    /** 最近一次环境结果；只有 petId 与本宠物相符时容器才会传。 */
+    env: EnvState | null;
 }
 /** 气泡单槽对外的读写面。 */
 export interface BubbleSlots {
     /** 点亮余额气泡并回到第一页，重置停留计时。 */
     showBalance(): void;
+    /** 点亮环境气泡，重置停留计时。 */
+    showEnv(): void;
     /** 点余额气泡翻页，并重置停留计时。 */
     cycleBalance(): void;
     /** 点亮说话气泡；duration 为 0 时不改动当前气泡，undefined 用默认时长。 */

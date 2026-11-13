@@ -9,6 +9,7 @@ import { type BalanceState } from '../shared/balance/index.ts';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type * as ReactNS from 'react';
 import type { jsx } from 'react/jsx-runtime';
+import type { EnvState } from '../shared/state.ts';
 /** 制造余额气泡组件（工厂），注入样式一次。
  *  内容来自 shared 的 balancePageView（按页取行数据）；内置形态走行数据，
  *  custom 走第三方节点树。切页是淡出 → 换内容 → 淡入，显隐与 10s 计时归 pet.ts 管。
@@ -40,4 +41,16 @@ export declare function makeWhisperBubble(rt: {
     voiceState?: 'idle' | 'loading' | 'ready' | 'failed';
     /** 可点时的回调；工作状态气泡用它跳会话，缺省即不可点。 */
     onClick?: (e: ReactNS.MouseEvent<HTMLDivElement>) => void;
+}) => ReactNode;
+/** 环境气泡：视图与文案来自 shared 的 envBubbleView，这里只把行映射成 React 节点。
+ *
+ *  主区是天气图标 + 大字气温 + 中文短语，下面三行键值（体感 / 湿度 / 风速），脚注给观测时刻；
+ *  没有天气数据时退化成一行「暂时查不到天气」——不画空数值，也不猜。
+ *  图标几何由 {@link envBubbleView} 带出，描边颜色跟气泡内的次级灰同色系。
+ */
+export declare function makeEnvBubble(rt: {
+    h: typeof jsx;
+}): (props: {
+    state: EnvState;
+    on: boolean;
 }) => ReactNode;

@@ -13,7 +13,7 @@ export declare function createBalancePoll(deps: BalancePollInput): {
     effectivePetList: () => Record<string, unknown>[];
     balancePeriodSec: (cfg: Record<string, Record<string, unknown>>) => number;
     whisperPeriodSec: (conf: Record<string, unknown>) => number;
-    refreshBalance: (manual?: boolean) => Promise<void>;
+    refreshBalance: (manual?: boolean, petId?: string) => Promise<void>;
     resolveActivePetId: () => string;
     petDisplayName: (pet: Record<string, unknown>) => string;
 };

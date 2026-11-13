@@ -270,19 +270,6 @@ app.whenReady().then(() => {
       dpi.petScale(),
   );
 
-  // 诊断：把决定渲染端能不能拿到配置的关键 env 全部落盘
-  try {
-    const fsDbg = require('node:fs');
-    const pathDbg = require('node:path');
-    const homeDbg = process.env.DSH_HOME || (process.env.USERPROFILE || process.env.HOME || '.') + '/.dsh';
-    const dirDbg = pathDbg.join(homeDbg, 'dsh-pet');
-    try { fsDbg.mkdirSync(dirDbg, { recursive: true }); } catch {}
-    const keys = ['DSH_PET_CONFIG_URL','DSH_PET_BRIDGE','DSH_PET_PETS','DSH_PET_OPEN_TARGET','DSH_PET_SITE_URL','DSH_PET_HOST_PID','DSH_PET_APP_MODE'];
-    const dump = keys.map(k => k + '=' + String(process.env[k])).join(' | ');
-    fsDbg.appendFileSync(pathDbg.join(dirDbg, 'helper-debug.log'),
-      new Date().toISOString() + ' HELPER-START pid=' + process.pid + ' BRIDGE=' + BRIDGE + ' ORIGIN=' + ORIGIN + '\n  ' + dump + '\n');
-  } catch {}
-
   if (BRIDGE) {
     // 自定义 scheme 接住渲染端全部请求（配置/余额/碎碎念/广播/素材）
     protocol.handle('dsh-pet-bridge', (request) =>
@@ -342,6 +329,8 @@ app.on('before-quit', () => {
 });
 
 app.on('window-all-closed', () => {
+  // 主屏缩放自查是「先关窗、再建窗」，两个动作之间窗口数会短暂为 0；新窗口已建好就不算真的全关
+  if (petWindows.state.windows.size > 0) return;
   // 托盘常驻：桌面上没有宠物也要留着，否则「全关掉」就再也切不回来
   if (tray.exists()) return;
   // 应用模式：窗口是被重建钩子关掉的，不是用户要退出——留着进程等下一次重建
